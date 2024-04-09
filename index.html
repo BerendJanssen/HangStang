@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Timer Game</h1>
+
+  <div class="form-group">
+    <label for="name">Enter your name:</label>
+    <input type="text" id="name" placeholder="Your Name">
+  </div>
+
+  <button onclick="startGame()">Start</button>
+
+  <div id="countdown"></div>
+  <div id="timer" style="display: none;">Time: 0 seconds</div>
+
+  <button onclick="stopGame()">Stop</button>
+
+  <h2>Scoreboard</h2>
+  <ol id="scoreboard"></ol>
+</div>
+
+<script>
+  let countdownTimer;
+  let gameTimer;
+  let startTime;
+  let scoreboardEntries = [];
+  let countdownDisplay = document.getElementById('countdown');
+  let timerDisplay = document.getElementById('timer');
+  
+  function startGame() {
+    const name = document.getElementById('name').value;
+    if (!name) {
+      alert("Please enter your name!");
+      return;
+    }
+  
+    document.getElementById('name').setAttribute('readonly', true);
+    countdownDisplay.style.display = 'block';
+    countdownDisplay.innerText = 'Countdown: 5';
+    timerDisplay.style.display = 'none';
+  
+    countdownTimer = setInterval(updateCountdown, 1000);
+  }
+  
+  function updateCountdown() {
+    let countdown = parseInt(countdownDisplay.innerText.split(': ')[1]);
+    countdown--;
+  
+    if (countdown === 1) { // Skip number 0
+      countdownDisplay.innerText = `Countdown: ${countdown}`;
+    } else if (countdown < 1) {
+      clearInterval(countdownTimer);
+      countdownDisplay.style.display = 'none';
+      timerDisplay.style.display = 'block';
+      timerDisplay.innerText = 'Time: 0 seconds'; // Show "Time: 0 seconds" after countdown
+      startTimer();
+    } else {
+      countdownDisplay.innerText = `Countdown: ${countdown}`;
+    }
+  }
+  
+  function startTimer() {
+    startTime = Date.now();
+    gameTimer = setInterval(updateTimer, 1000);
+  }
+  
+  function updateTimer() {
+    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById('timer').innerText = `Time: ${elapsedTime} seconds`;
+  }
+  
+  function stopGame() {
+    clearInterval(gameTimer);
+    const name = document.getElementById('name').value;
+    const time = document.getElementById('timer').innerText;
+    scoreboardEntries.push({ name: name, time: time });
+    updateScoreboard();
+    document.getElementById('name').removeAttribute('readonly');
+    document.getElementById('name').value = '';
+  }
+  
+  function updateScoreboard() {
+    const scoreboard = document.getElementById('scoreboard');
+    scoreboard.innerHTML = ''; // Clear previous entries
+    
+    scoreboardEntries.sort((a, b) => {
+      return parseInt(b.time.split(':')[1]) - parseInt(a.time.split(':')[1]);
+    });
+  
+    scoreboardEntries.forEach((entry) => {
+      const li = document.createElement('li');
+      li.innerText = `${entry.name}: ${entry.time.split(' ')[1]} seconds`; // Add "seconds" after the time
+      scoreboard.appendChild(li);
+    });
+  }
+  </script>
+  
+</body>
+</html>
+
+

@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light gray background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  h1 {
+    color: #333; /* Dark gray for headings */
+    font-size: 2.5em; /* Larger heading font size */
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  label {
+    font-size: 1.2em; /* Larger input label font size */
+  }
+  
+  input {
+    font-size: 1.2em; /* Larger input font size */
+    margin-left: 10px;
+  }
+  
+  button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #86c7b7; /* Pastel green for buttons */
+    border: none;
+    border-radius: 5px;
+    color: #fff; /* White text color */
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #6aa999; /* Darker green on hover */
+  }
+  
+  #countdown, #timer {
+    margin-top: 20px;
+    font-size: 1.5em; /* Larger countdown and timer font size */
+  }
+  
+  #scoreboard {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  #scoreboard li {
+    margin-bottom: 5px;
+    font-size: 1.2em; /* Larger scoreboard font size */
+  }
